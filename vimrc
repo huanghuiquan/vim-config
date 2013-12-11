@@ -59,11 +59,26 @@ set shiftwidth=4    " indent width
 " set smarttab
 set expandtab       " expand tab to space
 
+let mapleader='\'
+
 " zend coding
 let g:user_emmet_expandabbr_key='<C-e>'
 
 " neocomplcache auto complete
 let g:neocomplcache_enable_at_startup = 1
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 " nerd tree 
 let NERDChristmasTree=0
@@ -73,14 +88,43 @@ let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
 " let NERDTreeShowBookmarks=1
 let NERDTreeWinPos = "right"
 
+" Tagbar
+let g:tagbar_left=1
+let g:tagbar_width=30
+let g:tagbar_autofocus = 1
+let g:tagbar_sort = 0
+let g:tagbar_compact = 1
+
+
 " powerline
 " let g:Powerline_symbols = 'fancy'
 set laststatus=2
+
+
+" Tabularize align 
+if exists(":Tabularize")
+    nmap <Leader>== :Tabularize /=<CR>
+    vmap <Leader>== :Tabularize /=<CR>
+    nmap <Leader>=: :Tabularize /:\zs<CR>
+    vmap <Leader>=: :Tabularize /:\zs<CR>
+endif
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
 
 " Keybindings for plugin toggle
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 nmap <F6> :NERDTreeToggle<cr>
+nmap <F5> :TagbarToggle<cr>
 
 "------------------
 " Useful Functions
