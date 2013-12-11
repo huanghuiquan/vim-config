@@ -25,9 +25,11 @@ set cursorline cursorcolumn
 
 " search
 set incsearch
-"set highlight         " conflict with highlight current line
+" set highlight         " conflict with highlight current line
+set hlsearch 
 set ignorecase
 set smartcase
+
 
 " editor settings
 set history=1000
