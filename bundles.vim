@@ -19,10 +19,16 @@ Bundle 'ervandew/supertab'
 " Sytax/Index for language enhancement
 " ------------------------------------
 Bundle 'tpope/vim-markdown'
-
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'scrooloose/nerdtree'
-Bundle 'humiaozuzu/TabBar'
-" quickly to find file, key map ctrl + p
-Bundle 'kien/ctrlp.vim' 
-Bundle 'taglist.vim'
+" alt+num select tab
+Bundle 'TabBar'
+
+" ctrl + p; fast to find file.
+Bundle 'ctrlp.vim' 
+Bundle 'tpope/vim-surround'
+
+" commentor : num\c<space> | num\cc  | num\ci ....
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'godlygeek/tabular'
+Bundle 'majutsushi/tagbar'
