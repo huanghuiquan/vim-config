@@ -23,6 +23,8 @@ au WinLeave * set nocursorline nocursorcolumn
 au WinEnter * set cursorline cursorcolumn
 set cursorline cursorcolumn
 
+hi Visual term=reverse cterm=reverse guibg=Grey
+
 " search
 set incsearch
 " set highlight         " conflict with highlight current line
